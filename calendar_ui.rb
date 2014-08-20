@@ -62,11 +62,36 @@ def edit_event
   select_event
   puts "to delete 1"
   puts "to leave 2"
+  puts "to change name 3"
+  puts "to change location 4"
+  puts "to change start date 5"
+  puts "to change end date 6"
   shit = gets.chomp
   if shit == '1'
     @selected_event.destroy
   elsif shit == '2'
     main
+  elsif shit == '3'
+    puts 'enter name.'
+    name = gets.chomp
+    @selected_event.name = name
+    @selected_event.save
+  elsif shit == '4'
+    puts 'enter location'
+    location = gets.chomp
+    location_event = Location.create({ name: location})
+    @selected_event.location_id = location_event.id
+    @selected_event.save
+  elsif shit == '5'
+    puts 'enter new start date'
+    start = gets.chomp
+    @selected_event.start_date = start
+    @selected_event.save
+  elsif shit == '6'
+    puts 'enter new end date'
+    end_date = gets.chomp
+    @selected_event.end_date = end_date
+    @selected_event.save
   end
 end
 
