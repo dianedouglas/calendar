@@ -1,5 +1,5 @@
+require 'pry'
 require 'bundler/setup'
-# require 'pry'
 Bundler.require(:default)
 
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
@@ -9,24 +9,34 @@ DB = PG.connect({:dbname => 'calendar_development'})
 def main
   puts "Hey There!"
   loop do
-    puts "To create a new event pres sht5i lik 1"
-    puts "to list the sthi then press other ahsti lik 2"
-    puts "wanna edit? three"
-    puts " press clicky x to exit"
-    shit = gets.chomp
+    puts "To create a new event press 1"
+    puts "to list press 2"
+    puts "wanna edit? 3"
+    puts "list upcoming events 4"
+    puts "press clicky x to exit"
+    st = gets.chomp
 
-    if shit == '1'
+    if st == '1'
       add_event
-    elsif shit == '2'
+    elsif st == '2'
       list_events
-    elsif shit == '3'
+    elsif st == '3'
       edit_event
-    elsif shit == 'x'
+    elsif st == '4'
+      list_future_events
+    elsif st == 'x'
       exit
     else
       puts "wot m8?"
       main
     end
+  end
+end
+
+def list_future_events
+  Event.future_events.each_with_index do |event, i|
+    # binding.pry
+    puts (i + 1).to_s + ". " + event.name
   end
 end
 
